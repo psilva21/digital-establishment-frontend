@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { DevTool } from '@hookform/devtools'
 
 interface DialogProps {
   onAdd: (product: Partial<any>) => void;
@@ -57,7 +56,6 @@ const ProductDialog = ({
   };
 
   const {
-    control,
     handleSubmit: onSubmit,
     formState: { errors, touchedFields  },
     register,
@@ -132,7 +130,6 @@ const ProductDialog = ({
           </LoadingButton>
         </DialogActions>
         </form>
-        <DevTool control={control} />
     </Dialog>
   );
 };
