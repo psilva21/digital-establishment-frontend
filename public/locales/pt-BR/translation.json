@@ -1,0 +1,124 @@
+{
+    "admin": {
+        "drawer": {
+          "menu": {
+            "home": "Início",
+            "settings": "Configurações",
+            "collaborators": "Colaboradores",
+            "products": "Produtos",
+            "jobs": "Serviços",
+            "orders": "Pedidos"
+          }
+        },
+        "collaborators": {
+            "toolbar": {
+                "title": "Colaboradores"
+            },
+            "modal": {
+                "add": {
+                    "title": "Criação de Colaborador",
+                    "action": "Salvar"
+                },
+                "edit": {
+                    "title": "Editar dados Colaborador",
+                    "action": "Salvar"
+                }
+            },
+            "form": {
+                "name": {
+                    "label": "Nome"
+                },
+                "mobile": {
+                    "label": "Celular"
+                },
+                "cpf": {
+                    "label": "Cpf"
+                },
+                "email": {
+                    "label": "E-mail"
+                },
+                "jobs": {
+                    "label": "Serviços"
+                }
+            },
+            "confirmations": {
+                "delete": "Deseja realmente excluir?"
+            },
+            "snackbar": {
+                "delete": {
+                    "success": "Colaborador excluído"
+                }
+            },
+            "table": {
+                "headers": {
+                    "name": "Nome",
+                    "actions": "Ações"
+                }
+            }
+        },
+        "products": {
+            "toolbar": {
+                "title": "Produtos"
+            },
+            "modal": {
+                "add": {
+                    "title": "Criação de Produto",
+                    "action": "Salvar"
+                },
+                "edit": {
+                    "title": "Editar de Produto",
+                    "action": "Salvar"
+                }
+            },
+            "table": {
+                "headers": {
+                    "name": "Produto",
+                    "quantity": "Quantidade",
+                    "price": "Preço",
+                    "actions": "Ações"
+                }
+            },
+            "form": {
+                "name": {
+                    "label": "Nome" 
+                },
+                "quantity": {
+                    "label": "Quantidade" 
+                },
+                "price": {
+                    "label": "Preço" 
+                },
+                "minimunStock": {
+                    "label": "Estoque mínimo" 
+                }
+            },
+            "snackbar": {
+                "add": {
+                    "success": "Produto criado",
+                    "error": "Não foi possível salvar o produto"
+                },
+                "update": {
+                    "success": "Atualização realizada",
+                    "error": "Não foi possível atualizar o produto"
+                }
+
+            }
+        }
+    },
+    "common": {
+        "delete": "Deletar",
+        "edit": "Editar",
+        "selected": "Selecionados",
+        "cancel": "Cancelar",
+        "validations": {
+            "required": "Campo Obrigatório",
+            "email": "E-mail inválido"
+        },
+        "confirmation": "Confirmação",
+        "confirm": "Confirmar",
+        "snackbar": {
+            "success": "Sucesso",
+            "error": "Erro"
+        }
+    }
+}

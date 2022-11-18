@@ -8,3 +8,11 @@ export interface User {
   lastName: string;
   role: string;
 }
+
+
+export interface Collaborator {
+  name: string;
+  email: string;
+  mobile: string;
+  cpf: string;
+}

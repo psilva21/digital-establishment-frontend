@@ -5,14 +5,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import BarChartIcon from "@material-ui/icons/BarChart";
-import EventIcon from "@material-ui/icons/Event";
-import HelpCenterIcon from "@material-ui/icons/HelpCenter";
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import PersonIcon from "@material-ui/icons/Person";
-import SettingsIcon from "@material-ui/icons/Settings";
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import WorkIcon from '@material-ui/icons/Work';
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../auth/contexts/AuthProvider";
@@ -23,7 +21,6 @@ type AdminDrawerProps = {
   collapsed: boolean;
   mobileOpen: boolean;
   onDrawerToggle: () => void;
-  onSettingsToggle: () => void;
 };
 
 export const menuItems = [
@@ -34,28 +31,23 @@ export const menuItems = [
   },
   {
     icon: BarChartIcon,
-    key: "admin.drawer.menu.dashboard",
-    path: "/admin/dashboard",
+    key: "admin.drawer.menu.orders",
+    path: "/admin/orders",
   },
   {
     icon: PeopleIcon,
-    key: "admin.drawer.menu.userManagement",
-    path: "/admin/user-management",
+    key: "admin.drawer.menu.collaborators",
+    path: "/admin/collaborators",
   },
   {
-    icon: EventIcon,
-    key: "admin.drawer.menu.calendar",
-    path: "/admin/calendar",
+    icon: StorefrontIcon,
+    key: "admin.drawer.menu.products",
+    path: "/admin/products",
   },
   {
-    icon: AccountTreeIcon,
-    key: "admin.drawer.menu.projects",
-    path: "/admin/projects",
-  },
-  {
-    icon: HelpCenterIcon,
-    key: "admin.drawer.menu.help",
-    path: "/admin/help",
+    icon: WorkIcon,
+    key: "admin.drawer.menu.jobs",
+    path: "/admin/jobs",
   },
 ];
 
@@ -63,7 +55,6 @@ const AdminDrawer = ({
   collapsed,
   mobileOpen,
   onDrawerToggle,
-  onSettingsToggle,
 }: AdminDrawerProps) => {
   const { userInfo } = useAuth();
   const { t } = useTranslation();
@@ -117,19 +108,6 @@ const AdminDrawer = ({
               }}
             />
           )}
-        </ListItem>
-        <ListItem button onClick={onSettingsToggle}>
-          <ListItemAvatar>
-            <Avatar>
-              <SettingsIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary={t("admin.drawer.menu.settings")}
-            sx={{
-              display: collapsed ? "none" : "block",
-            }}
-          />
         </ListItem>
       </List>
     </Box>

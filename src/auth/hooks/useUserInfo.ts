@@ -1,9 +1,9 @@
-import axios from "axios";
+import { instance } from "../../mocks/server";
 import { useQuery } from "react-query";
 import { UserInfo } from "../types/userInfo";
 
 const fetchUserInfo = async (key?: string): Promise<UserInfo> => {
-  const { data } = await axios.get("/api/user-info", { params: { key } });
+  const { data } = await instance.get("/api/user-info", { params: { key } });
   return data;
 };
 

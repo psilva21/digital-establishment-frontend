@@ -1,7 +1,4 @@
-import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-import Checkbox from "@material-ui/core/Checkbox";
-import Chip from "@material-ui/core/Chip";
 import IconButton from "@material-ui/core/IconButton";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Menu from "@material-ui/core/Menu";
@@ -14,15 +11,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import PersonIcon from "@material-ui/icons/Person";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Empty from "../../core/components/Empty";
-import * as selectUtils from "../../core/utils/selectUtils";
-import { User } from "../types/user";
 
 interface HeadCell {
   id: string;
@@ -32,75 +25,56 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   {
-    id: "user",
+    id: "product",
     align: "left",
-    label: "admin.collaborators.table.headers.name",
+    label: "admin.products.table.headers.name",
+  },
+  {
+    id: "quantity",
+    align: "left",
+    label: "admin.products.table.headers.quantity",
+  },
+  {
+    id: "price",
+    align: "left",
+    label: "admin.products.table.headers.price",
   },
 ];
 
-interface EnhancedTableProps {
-  numSelected: number;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  rowCount: number;
-}
-
-function EnhancedTableHead({
-  onSelectAllClick,
-  numSelected,
-  rowCount,
-}: EnhancedTableProps) {
+function EnhancedTableHead() {
   const { t } = useTranslation();
 
   return (
     <TableHead>
       <TableRow sx={{ "& th": { border: 0 } }}>
-        <TableCell sx={{ py: 0 }}>
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all users",
-            }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell key={headCell.id} align={headCell.align} sx={{ py: 0 }}>
             {t(headCell.label)}
           </TableCell>
         ))}
         <TableCell align="right" sx={{ py: 0 }}>
-          {t("admin.collaborators.table.headers.actions")}
+          {t("admin.products.table.headers.actions")}
         </TableCell>
       </TableRow>
     </TableHead>
   );
 }
 
-type UserRowProps = {
-  index: number;
-  onCheck: (id: string) => void;
-  onDelete: (userIds: string[]) => void;
-  onEdit: (user: User) => void;
+interface ProductRowProps {
+  onEdit: (product: any) => void;
   processing: boolean;
-  selected: boolean;
-  user: User;
+  product: any;
 };
 
-const UserRow = ({
-  index,
-  onCheck,
-  onDelete,
+
+const ProductRow = ({
   onEdit,
   processing,
-  selected,
-  user,
-}: UserRowProps) => {
+  product,
+}: ProductRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
 
-  const labelId = `enhanced-table-checkbox-${index}`;
   const openActions = Boolean(anchorEl);
 
   const handleOpenActions = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -111,60 +85,43 @@ const UserRow = ({
     setAnchorEl(null);
   };
 
-  const handleDelete = () => {
-    handleCloseActions();
-    onDelete([user.id]);
-  };
-
   const handleEdit = () => {
     handleCloseActions();
-    onEdit(user);
+    onEdit(product);
   };
 
   return (
     <TableRow
-      aria-checked={selected}
       tabIndex={-1}
-      key={user.id}
-      selected={selected}
+      key={product.id}
       sx={{ "& td": { bgcolor: "background.paper", border: 0 } }}
     >
-      <TableCell
-        padding="checkbox"
-        sx={{ borderTopLeftRadius: "1rem", borderBottomLeftRadius: "1rem" }}
-      >
-        <Checkbox
-          color="primary"
-          checked={selected}
-          inputProps={{
-            "aria-labelledby": labelId,
-          }}
-          onClick={() => onCheck(user.id)}
-        />
-      </TableCell>
-      <TableCell>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Avatar sx={{ mr: 3 }}>
-            <PersonIcon />
-          </Avatar>
+      <TableCell sx={{ borderTopLeftRadius: "1rem", borderBottomLeftRadius: "1rem" }}>
+        <Box sx={{ display: "flex", alignItems: "center"}}>
           <Box>
             <Typography component="div" variant="h6">
-              {`${user.lastName} ${user.firstName}`}
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              {user.email}
+              {product.name}
             </Typography>
           </Box>
         </Box>
       </TableCell>
-      <TableCell align="center">{user.gender}</TableCell>
-      <TableCell align="center">{user.role}</TableCell>
-      <TableCell align="center">
-        {user.disabled ? (
-          <Chip label="Disabled" />
-        ) : (
-          <Chip color="primary" label="Active" />
-        )}
+      <TableCell>
+        <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box>
+            <Typography component="div" variant="h6">
+              {product.quantity}
+            </Typography>
+          </Box>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box>
+            <Typography component="div" variant="h6">
+              {product.price}
+            </Typography>
+          </Box>
+        </Box>
       </TableCell>
       <TableCell
         align="right"
@@ -202,51 +159,25 @@ const UserRow = ({
             </ListItemIcon>{" "}
             {t("common.edit")}
           </MenuItem>
-          <MenuItem onClick={handleDelete}>
-            <ListItemIcon>
-              <DeleteIcon />
-            </ListItemIcon>{" "}
-            {t("common.delete")}
-          </MenuItem>
         </Menu>
       </TableCell>
     </TableRow>
   );
 };
 
-type UserTableProps = {
+interface ProductTableProps {
   processing: boolean;
-  onDelete: (userIds: string[]) => void;
-  onEdit: (user: User) => void;
-  onSelectedChange: (selected: string[]) => void;
-  selected: string[];
-  users?: User[];
+  onEdit: (product: any) => void;
+  products?: any[];
 };
 
-const UserTable = ({
-  onDelete,
+const ProductTable = ({
   onEdit,
-  onSelectedChange,
   processing,
-  selected,
-  users = [],
-}: UserTableProps) => {
+  products = [],
+}: ProductTableProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelecteds = selectUtils.selectAll(users);
-      onSelectedChange(newSelecteds);
-      return;
-    }
-    onSelectedChange([]);
-  };
-
-  const handleClick = (id: string) => {
-    let newSelected: string[] = selectUtils.selectOne(selected, id);
-    onSelectedChange(newSelected);
-  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -259,14 +190,12 @@ const UserTable = ({
     setPage(0);
   };
 
-  const isSelected = (id: string) => selected.indexOf(id) !== -1;
-
-  if (users.length === 0) {
+  if (products.length === 0) {
     return <Empty title="No user yet" />;
   }
 
   return (
-    <React.Fragment>
+    <>
       <TableContainer>
         <Table
           aria-labelledby="tableTitle"
@@ -276,24 +205,16 @@ const UserTable = ({
             borderSpacing: "0 1rem",
           }}
         >
-          <EnhancedTableHead
-            numSelected={selected.length}
-            onSelectAllClick={handleSelectAllClick}
-            rowCount={users.length}
-          />
+          <EnhancedTableHead/>
           <TableBody>
-            {users
+            {products
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((user, index) => (
-                <UserRow
-                  index={index}
-                  key={user.id}
-                  onCheck={handleClick}
-                  onDelete={onDelete}
+              .map((product) => (
+                <ProductRow
+                  key={product.id}
                   onEdit={onEdit}
                   processing={processing}
-                  selected={isSelected(user.id)}
-                  user={user}
+                  product={product}
                 />
               ))}
           </TableBody>
@@ -302,14 +223,14 @@ const UserTable = ({
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={users.length}
+        count={products.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </React.Fragment>
+    </>
   );
 };
 
-export default UserTable;
+export default ProductTable;

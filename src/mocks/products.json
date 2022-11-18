@@ -1,0 +1,29 @@
+[
+    {
+        "id": 123,
+        "name": "Produto 1",
+        "quantity": 10,
+        "price": 2.23,
+        "minimunStock": 10,
+        "barcode": null,
+        "unit": "unidade"
+    },
+    {
+        "id": 2,
+        "name": "Produto 2",
+        "quantity": 10,
+        "price": 2.22,
+        "minimunStock": 10,
+        "barcode": null,
+        "unit": "unidade"
+    },
+    {
+        "id": 3,
+        "name": "Produto 3",
+        "quantity": 10,
+        "price": 2.23,
+        "minimunStock": 10,
+        "barcode": null,
+        "unit": "unidade"
+    }
+]

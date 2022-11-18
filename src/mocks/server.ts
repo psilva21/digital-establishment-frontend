@@ -1,5 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import products from "./products.json";
 import activityLogs from "./activityLogs.json";
 import events from "./events.json";
 import notifications from "./notifications.json";
@@ -13,13 +14,15 @@ function generateId() {
   return (Math.floor(Math.random() * 10000) + 1).toString();
 }
 
-// This sets the mock adapter on the default instance
-let mock = new MockAdapter(axios, { delayResponse: 2000 });
+export const instance = axios.create()
 
-// Activity
+// This sets the mock adapter on the default instance
+let mock = new MockAdapter(instance, { delayResponse: 2000 });
+
+// // Activity
 mock.onGet("/api/activity-logs").reply(200, activityLogs);
 
-// Auth
+// // Auth
 mock.onPut("/api/password").reply(({ data }) => [200, data]);
 mock.onPost("/api/forgot-password").reply(200);
 mock.onPost("/api/forgot-password-submit").reply(200);
@@ -30,7 +33,7 @@ mock
   .onGet("/api/user-info", { params: { key: "AUTHKEY123" } })
   .reply(200, userInfo);
 
-// Events
+// // Events
 mock.onDelete("/api/events").reply(({ data }) => [200, data]);
 mock.onGet("/api/events").reply(
   200,
@@ -41,17 +44,20 @@ mock
   .reply(({ data }) => [201, { ...JSON.parse(data), id: generateId() }]);
 mock.onPut("/api/events").reply(({ data }) => [200, data]);
 
-// Notifications
+// // Notifications
 mock.onGet("/api/notifications").reply(200, notifications);
 
-// Profile
+// // Profile
 mock.onGet("/api/profile-info").reply(200, profileInfo);
 mock.onPut("/api/profile-info").reply(({ data }) => [200, data]);
 
-// Users
+// // Users
 mock.onDelete("/api/users").reply(({ data }) => [200, data]);
 mock.onGet("/api/users").reply(200, users);
 mock
   .onPost("/api/users")
   .reply(({ data }) => [201, { ...JSON.parse(data), id: generateId() }]);
 mock.onPut("/api/users").reply(({ data }) => [200, data]);
+
+// // Products
+mock.onGet("/api/products").reply(200, products);

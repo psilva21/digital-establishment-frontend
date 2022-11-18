@@ -7,7 +7,7 @@ import AdminToolbar from "../../admin/components/AdminToolbar";
 import ConfirmDialog from "../../core/components/ConfirmDialog";
 import SelectToolbar from "../../core/components/SelectToolbar";
 import { useSnackbar } from "../../core/contexts/SnackbarProvider";
-import UserDialog from "../components/UserDialog";
+import CollaboratorDialog from "../components/UserDialog";
 import UserTable from "../components/UserTable";
 import { useAddUser } from "../hooks/useAddUser";
 import { useDeleteUsers } from "../hooks/useDeleteUsers";
@@ -15,7 +15,7 @@ import { useUpdateUser } from "../hooks/useUpdateUser";
 import { useUsers } from "../hooks/useUsers";
 import { User } from "../types/user";
 
-const UserManagement = () => {
+const Collaborators = () => {
   const snackbar = useSnackbar();
   const { t } = useTranslation();
 
@@ -106,7 +106,7 @@ const UserManagement = () => {
     <React.Fragment>
       <AdminAppBar>
         {!selected.length ? (
-          <AdminToolbar title={t("userManagement.toolbar.title")}>
+          <AdminToolbar title={t("admin.collaborators.toolbar.title")}>
             <Fab
               aria-label="logout"
               color="primary"
@@ -135,7 +135,7 @@ const UserManagement = () => {
         users={data}
       />
       <ConfirmDialog
-        description={t("userManagement.confirmations.delete")}
+        description={t("admin.collaborators.confirmations.delete")}
         pending={processing}
         onClose={handleCloseConfirmDeleteDialog}
         onConfirm={handleDeleteUsers}
@@ -143,7 +143,7 @@ const UserManagement = () => {
         title={t("common.confirmation")}
       />
       {openUserDialog && (
-        <UserDialog
+        <CollaboratorDialog
           onAdd={handleAddUser}
           onClose={handleCloseUserDialog}
           onUpdate={handleUpdateUser}
@@ -156,4 +156,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default Collaborators;
